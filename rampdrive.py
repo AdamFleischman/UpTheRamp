@@ -7,9 +7,11 @@ class RampDrive(AutoRoutine):
         self.drivetrain = drivetrain
         self.rampState = 0
         # 0 is before ramp, 1 is on ramp, 2 is after ramp
-        self.flatSpeed = .8
-        self.rampSpeed = .5
-        self.rotate = 0
+        self.flatSpeed = .6
+        self.rampSpeed = 1
+        self.pid_controller = PIDController(20, 0, 0)
+        self.pid_controller.setSetpoint(0)
+        self.pid_controller.setTolerance(.05)
         self.gyroAngleYThreshold = 5
 
     def run(self):
