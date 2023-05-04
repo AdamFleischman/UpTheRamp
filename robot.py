@@ -2,11 +2,29 @@ from drivetrain import Drivetrain
 import os
 import wpilib
 from wpilib import TimedRobot
+from robotcontainer import RobotContainer
 
 
 class MyRobot(TimedRobot):  # this is the controller
     def robotInit(self):  # something
-        self.drivetrain = Drivetrain()
+        #self.drivetrain = Drivetrain()
+        self.container = RobotContainer()
+
+    def teleopPeriodic(self):
+        forward = self.container.controller.getRawAxis(0)
+        rotate = self.container.controller.getRawAxis(1)
+        self.container.drivetrain.arcadeDrive(rotate, forward)
+        print(f"Forward: {forward}, Rotate: {rotate}")
+
+    def autonomousInit(self):
+        self.auto = self.container.get_autonomous()
+
+    def autonomousPeriodic(self):
+        self.auto.run()
+
+    def autonomousExit(self):
+        self.container.drivetrain.resetEncoders()
+        self.container.drivetrain.resetGyro()
 
 
 if __name__ == "__main__":

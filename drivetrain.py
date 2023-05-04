@@ -2,11 +2,13 @@ from wpilib import Spark, Encoder
 from wpilib.drive import DifferentialDrive
 import math
 import romi
+import wpilib
 
 
 class Drivetrain:
     def __init__(self):
-        self.left_encoder = Encoder(4, 5)
+
+        self.left_encoder = wpilib.Encoder(4, 5)
         self.right_encoder = Encoder(6, 7)
         self.left_motor = Spark(0)
         self.right_motor = Spark(1)

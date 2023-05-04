@@ -15,12 +15,14 @@ class RampDrive(AutoRoutine):
         self.gyroAngleYThreshold = 5
 
     def run(self):
+        difference = self.drivetrain.left_encoder.getDistance() - self.drivetrain.right_encoder.getDistance()
+        rotate = self.pid_controller.calculate(difference)
         if self.rampState == 0:     # before ramp
-            self.drivetrain.move(self.flatSpeed, self.rotate)
+            self.drivetrain.move(self.flatSpeed, rotate)
             if self.drivetrain.getGyroAngleY() > self.gyroAngleYThreshold:
                 self.rampState = 1
         elif self.rampState == 1:   # on ramp
-            self.drivetrain.move(self.rampSpeed, self.rotate)
+            self.drivetrain.move(self.rampSpeed, rotate)
             if self.drivetrain.getGyroAngleY() < self.gyroAngleYThreshold:
                 self.rampState = 2
         else:                       # after ramp
