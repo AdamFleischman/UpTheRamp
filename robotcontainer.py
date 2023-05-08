@@ -2,6 +2,7 @@ import wpilib
 
 from drivetrain import Drivetrain
 from autoroutine import AutoRoutine
+from rampdrive import RampDrive
 
 
 class RobotContainer:
@@ -13,6 +14,7 @@ class RobotContainer:
         self._configure()
 
     def _configure(self):
+        self.chooser.addOption("Ramp Drive", RampDrive(self.drivetrain))
         wpilib.SmartDashboard.putData(self.chooser)
 
     def get_autonomous(self) -> AutoRoutine:
