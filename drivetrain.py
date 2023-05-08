@@ -18,7 +18,7 @@ class Drivetrain:
         self.gyro = romi.RomiGyro()
 
     def move(self, forward, rotate):
-        self.drivetrain.arcadeDrive(forward, rotate)
+        self.drivetrain.arcadeDrive(rotate, forward)
 
     def getGyroAngleY(self):
         """
@@ -32,3 +32,7 @@ class Drivetrain:
         """Resets the angles to all be 0."""
 
         self.gyro.reset()
+
+    def resetEncoders(self):
+        self.left_encoder.reset()
+        self.right_encoder.reset()

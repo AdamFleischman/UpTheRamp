@@ -8,7 +8,7 @@ class RampDrive(AutoRoutine):
         self.rampState = 0
         # 0 is before ramp, 1 is on ramp, 2 is after ramp
         self.flatSpeed = .6
-        self.rampSpeed = 1
+        self.rampSpeed = .8
         self.pid_controller = PIDController(20, 0, 0)
         self.pid_controller.setSetpoint(0)
         self.pid_controller.setTolerance(.05)
@@ -21,6 +21,7 @@ class RampDrive(AutoRoutine):
             self.drivetrain.move(self.flatSpeed, rotate)
             if self.drivetrain.getGyroAngleY() > self.gyroAngleYThreshold:
                 self.rampState = 1
+                self.pid_controller.setTolerance(.2)
         elif self.rampState == 1:   # on ramp
             self.drivetrain.move(self.rampSpeed, rotate)
             if self.drivetrain.getGyroAngleY() < self.gyroAngleYThreshold:
