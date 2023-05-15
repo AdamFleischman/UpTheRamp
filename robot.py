@@ -19,9 +19,6 @@ class MyRobot(TimedRobot):  # this is the controller
     def autonomousInit(self):
         self.auto = self.container.get_autonomous()
 
-    def autonomousPeriodic(self):
-        self.auto.run()
-
     def autonomousExit(self):
         self.container.drivetrain.resetEncoders()
         self.container.drivetrain.resetGyro()
