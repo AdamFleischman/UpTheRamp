@@ -36,3 +36,12 @@ class Drivetrain:
     def resetEncoders(self):
         self.left_encoder.reset()
         self.right_encoder.reset()
+
+    def getLeftDistanceMeter(self) -> float:
+        return self.left_encoder.getDistance()
+
+    def getRightDistanceMeter(self) -> float:
+        return self.right_encoder.getDistance()
+
+    def averageDistanceMeter(self) -> float:
+        return self.getRightDistanceMeter()+self.getLeftDistanceMeter()/2.0
